@@ -20,18 +20,18 @@ Then run `vagrant provision` to instruct Chassis to download and install the new
 Ensure you have a Chassis instance set up locally already.
 
 ```
-# In your Chassis dir:
+#### In your Chassis dir:
 cd extensions
 
-# Grab the extension
+#### Grab the extension
 git clone --recursive https://github.com/Chassis/phpunit.git phpunit
 
-# Reprovision
+#### Reprovision
 cd ..
 vagrant provision
 ```
 
-# Usage
+## Usage
 ```
 vagrant ssh
 cd /vagrant/content/{plugins|themes}/yourdirectory
