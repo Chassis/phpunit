@@ -39,3 +39,16 @@ phpunit
 ```
 
 You're now ready to run `phpunit` within your Chassis virtual machine!
+
+### Specifying a version
+
+To specify a version of PHPUnit to install, add the following to your Chassis config file:
+
+```
+phpunit:
+  version: 5.7
+```
+
+You can specify the version to with either two or three digits, eg `5.7` or `5.7.10`.
+
+For PHP versions 7.0 and over the default version is 5.7. For PHP version 5.6 the default version is 4.8.
