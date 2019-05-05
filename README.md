@@ -40,7 +40,7 @@ phpunit
 
 You're now ready to run `phpunit` within your Chassis virtual machine!
 
-### Specifying a version
+## Specifying a version
 
 To specify a version of PHPUnit to install, add the following to your Chassis config file:
 
