@@ -21,16 +21,16 @@ class phpunit (
 			$phpunit_repo_url = "https://phar.phpunit.de/phpunit-${config[phpunit][version]}.phar"
 		} elsif versioncmp( $config[php], '5.6' ) == 0 {
 			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-4.8.phar'
+		} elsif versioncmp( $config[php], '7.0' ) == 0 {
+			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-6.5.phar'
 		} else {
 			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-7.5.phar'
 		}
 
 		# Download phpunit
 		exec { 'phpunit download':
-			command => "/usr/bin/curl -o ${install_path}/phpunit.phar -L ${
-				phpunit_repo_url}",
-			require => [ Package[ 'curl' ], File[ $install_path ] ],
-			creates => "${install_path}/phpunit.phar",
+			command => "/usr/bin/curl -o ${install_path}/phpunit.phar -L ${phpunit_repo_url}",
+			require => [ Package[ 'curl' ], File[ $install_path ] ]
 		}
 
 		# Ensure we can run phpunit
