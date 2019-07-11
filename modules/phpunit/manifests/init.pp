@@ -21,6 +21,8 @@ class phpunit (
 			$phpunit_repo_url = "https://phar.phpunit.de/phpunit-${config[phpunit][version]}.phar"
 		} elsif versioncmp( $config[php], '5.6' ) == 0 {
 			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-4.8.phar'
+		} elsif versioncmp( $config[php], '7.0' ) == 0 {
+			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-6.5.phar'
 		} else {
 			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-7.5.phar'
 		}
