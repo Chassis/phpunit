@@ -29,10 +29,8 @@ class phpunit (
 
 		# Download phpunit
 		exec { 'phpunit download':
-			command => "/usr/bin/curl -o ${install_path}/phpunit.phar -L ${
-				phpunit_repo_url}",
-			require => [ Package[ 'curl' ], File[ $install_path ] ],
-			creates => "${install_path}/phpunit.phar",
+			command => "/usr/bin/curl -o ${install_path}/phpunit.phar -L ${phpunit_repo_url}",
+			require => [ Package[ 'curl' ], File[ $install_path ] ]
 		}
 
 		# Ensure we can run phpunit
