@@ -22,7 +22,7 @@ class phpunit (
 		} elsif versioncmp( $config[php], '5.6' ) == 0 {
 			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-4.8.phar'
 		} else {
-			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-5.7.phar'
+			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-7.5.phar'
 		}
 
 		# Download phpunit
