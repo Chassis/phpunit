@@ -16,21 +16,25 @@ class phpunit (
 		file { $install_path:
 			ensure => directory,
 		}
-
 		if ( ! empty( $config[phpunit] ) and ! empty( $config[phpunit][version] ) ) {
 			$phpunit_repo_url = "https://phar.phpunit.de/phpunit-${config[phpunit][version]}.phar"
-		} elsif versioncmp( $config[php], '5.6' ) == 0 {
+			$phpunit_version = $config[phpunit][version]
+		} elsif versioncmp( $config[php], 5.6 ) == 0 {
 			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-4.8.phar'
+			$phpunit_version = 4.8
 		} elsif versioncmp( $config[php], '7.0' ) == 0 {
 			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-6.5.phar'
+			$phpunit_version = 6.5
 		} else {
 			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-7.5.phar'
+			$phpunit_version = 7.5
 		}
 
 		# Download phpunit
 		exec { 'phpunit download':
 			command => "/usr/bin/curl -o ${install_path}/phpunit.phar -L ${phpunit_repo_url}",
-			require => [ Package[ 'curl' ], File[ $install_path ] ]
+			require => [ Package[ 'curl' ], File[ $install_path ] ],
+			unless  => "/usr/bin/phpunit phpunit --version | grep 'PHPUnit '${phpunit_version}"
 		}
 
 		# Ensure we can run phpunit
@@ -44,7 +48,7 @@ class phpunit (
 		file { '/usr/bin/phpunit':
 			ensure  => link,
 			target  => "${install_path}/phpunit.phar",
-			require => File[ "${install_path}/phpunit.phar" ],
+			require => Exec[ 'phpunit download' ]
 		}
 	} else {
 		file { $install_path:
