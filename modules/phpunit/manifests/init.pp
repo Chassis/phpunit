@@ -34,21 +34,36 @@ class phpunit (
 		exec { 'phpunit download':
 			command => "/usr/bin/curl -o ${install_path}/phpunit.phar -L ${phpunit_repo_url}",
 			require => [ Package[ 'curl' ], File[ $install_path ] ],
-			unless  => "/usr/bin/phpunit phpunit --version | grep 'PHPUnit '${phpunit_version}"
+			path    =>  ['/usr/bin', '/usr/sbin', '/bin'],
+			onlyif  => 'test ! -h /usr/bin/phpunit',
+		}
+
+		# Maybe upgrade phpunit
+		exec { 'maybe upgrade phpunit':
+			command => "/usr/bin/curl -o ${install_path}/phpunit.phar -L ${phpunit_repo_url}",
+			require => Package[ 'curl' ],
+			unless  => "/usr/bin/phpunit phpunit --version | grep 'PHPUnit '${phpunit_version}",
+			path    =>  ['/usr/bin', '/usr/sbin', '/bin'],
+			onlyif  => 'test -h /usr/bin/phpunit',
 		}
 
 		# Ensure we can run phpunit
 		file { "${install_path}/phpunit.phar":
-			ensure  => present,
-			mode    => 'a+x',
-			require => Exec[ 'phpunit download' ]
+			ensure => present,
+			mode   => 'a+x'
 		}
 
 		# Symlink it across
 		file { '/usr/bin/phpunit':
 			ensure  => link,
 			target  => "${install_path}/phpunit.phar",
-			require => Exec[ 'phpunit download' ]
+			require => Exec['check phpunit phar exists']
+		}
+
+		exec { 'check phpunit phar exists':
+			command => true,
+			path    =>  ['/usr/bin', '/usr/sbin', '/bin'],
+			onlyif  => "test -f ${install_path}/phpunit.phar",
 		}
 	} else {
 		file { $install_path:
