@@ -16,6 +16,7 @@ class phpunit (
 		file { $install_path:
 			ensure => directory,
 		}
+
 		if ( ! empty( $config[phpunit] ) and ! empty( $config[phpunit][version] ) ) {
 			$phpunit_repo_url = "https://phar.phpunit.de/phpunit-${config[phpunit][version]}.phar"
 			$phpunit_version = $config[phpunit][version]
