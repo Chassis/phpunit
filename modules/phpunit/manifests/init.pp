@@ -62,7 +62,7 @@ class phpunit (
 		}
 
 		exec { 'check phpunit phar exists':
-			command => true,
+			command => "test -f ${install_path}/phpunit.phar",
 			path    =>  ['/usr/bin', '/usr/sbin', '/bin'],
 			onlyif  => "test -f ${install_path}/phpunit.phar",
 		}
