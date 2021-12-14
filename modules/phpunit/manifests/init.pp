@@ -26,9 +26,15 @@ class phpunit (
 		} elsif versioncmp( $config[php], '7.0' ) == 0 {
 			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-6.5.phar'
 			$phpunit_version = 6.5
-		} else {
+		} elsif versioncmp( $config[php], '7.1' ) == 0 {
 			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-7.5.phar'
 			$phpunit_version = 7.5
+		} elsif versioncmp( $config[php], '7.2' ) == 0 {
+			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-8.phar'
+			$phpunit_version = 8.0
+		} else {
+			$phpunit_repo_url = 'https://phar.phpunit.de/phpunit-9.phar'
+			$phpunit_version = 9.0
 		}
 
 		# Download phpunit
