@@ -52,3 +52,12 @@ phpunit:
 You can specify the version to with either two or three digits, eg `5.7` or `5.7.10`.
 
 For PHP versions 7.0 and over the default version is 5.7. For PHP version 5.6 the default version is 4.8.
+
+### Version Support
+
+We currently support the following versions of PHPUnit:
+* 4.8
+* 6.5
+* 7.5
+* 8.x
+* 9.x
